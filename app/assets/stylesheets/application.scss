@@ -1,0 +1,40 @@
+.background_image{
+  position:fixed;
+  left:0px;
+  top:0px;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+
+.category_list{
+  positiong:fixed;
+  color:white;
+  text-align: center;
+  padding-top: 20%;
+  padding-left: 30%
+
+}
+
+
+a{
+  color:white;
+}
+
+a:link {
+  text-decoration: none;
+}
+
+a:visited {
+  color:white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  text-decoration: underline;
+}

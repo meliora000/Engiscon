@@ -1,0 +1,12 @@
+<div>
+  <%= image_tag("JosephLeeCover.jpg",:class => "background_image") %>
+  <div class="category_list">
+
+      <% @categories.each do |category| %>
+        <h3>
+          <%= link_to category.title, category %>
+        </h3>
+      <% end %>
+
+  </div>
+</div>
