@@ -4,7 +4,7 @@
     <ul>
       <li><h1><%= post.title %></h1></li>
       <li><%= post.url %></li>
-      <li><%= post.content %></li>
+      <li><%= simple_format(post.content) %></li>
     </ul>
 <% end %>
 
