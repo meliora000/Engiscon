@@ -1,3 +1,18 @@
+<style>
+  .category_list{
+    position:fixed;
+    left:50px;
+    top:-30px;
+  }
+
+  .joseph_sign{
+    position:fixed;
+    left:50px;
+    top:10%;
+    z-index: 1;
+  }
+</style>
+
 <ul class="cb-slideshow">
   <li><span>Image 01</span><div><h3></h3></div></li>
   <li><span>Image 02</span><div><h3></h3></div></li>
@@ -9,16 +24,23 @@
 
 
 <div class="container">
+
   <div class="clr"></div>
   <div class="category_list">
     <%= image_tag("JosephLeeCover.png", :class => "joseph_sign") %>
 
+  <div class="category_list">
 
     <% @categories.each do |category| %>
-        <h3>
+        <h5>
+
           <%= link_to category.title, category %>
-        </h3>
+
+        </h5>
       <% end %>
+
+  </div>
+
 
   </div>
 </div>

@@ -1,0 +1,60 @@
+<style>
+  .parallax-container {
+    height:700px;
+  }
+</style>
+
+
+<div class="parallax-container">
+  <div class="parallax"><img src=<%= @posts.first.url %>></div>
+</div>
+<div class="section white">
+  <div class="row container">
+    <h2 class="header"><%= @posts.first.title %></h2>
+    <p class="grey-text text-darken-3 lighten-3"><%= simple_format(@posts.first.content) %></p>
+  </div>
+</div>
+
+
+
+<div class="parallax-container">
+  <div class="parallax"><img src=<%= @posts.second.url %>></div>
+</div>
+<div class="section white">
+  <div class="row container">
+    <h2 class="header"><%= @posts.second.title %></h2>
+    <p class="grey-text text-darken-3 lighten-3"><%= simple_format(@posts.second.content) %></p>
+  </div>
+</div>
+
+
+<div class="slider">
+  <ul class="slides">
+
+    <% @posts.each do |post| %>
+
+    <li>
+      <img src=<%= post.url %>> <!-- random image -->
+      <div class="caption center-align">
+        <h3><%= post.title %></h3>
+        <h5 class="light grey-text text-lighten-3"><%= post.content %></h5>
+      </div>
+    </li>
+    <% end %>
+  </ul>
+</div>
+
+
+<script>
+  $(document).ready(function(){
+    $('.parallax').parallax();
+  });
+
+  $(document).ready(function(){
+    $('.materialboxed').materialbox();
+  });
+
+  $(document).ready(function(){
+    $('.slider').slider({full_height: true});
+  });
+</script>

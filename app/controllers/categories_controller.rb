@@ -1,5 +1,7 @@
 class CategoriesController < ApplicationController
+  include ApplicationHelper
   before_action :set_category, only: [:show]
+
   def index
     @categories = Category.all
 
