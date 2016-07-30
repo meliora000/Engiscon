@@ -1,0 +1,16 @@
+<style>
+  .main{
+    text-align: center;
+  }
+</style>
+
+<div class ="main">
+<% @categories.each do |category| %>
+    <h4><%= category.title %></h4>
+      <%= link_to "글쓰기", new_category_post_path(category), class:"wirte_post"%>
+    <% category.posts.each do |post| %>
+      <p><%= post.title %></p>
+      <%= link_to "edit", edit_category_post_path(post.category, post) %>
+    <% end %>
+<% end %>
+</div>

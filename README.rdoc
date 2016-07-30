@@ -1,28 +1,38 @@
-== README
+<h4>View</h4>
+using Matrialize - parallax-container
+You can check on root/categories/2
+views/categories/_form_photo.html.erb
+<div class="parallax-container">
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
-
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+posts edit
+need two value
+<%= link_to "edit", edit_category_post_path(post.category, post) %>
 
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+<h4>Controller</h4>
+retreive Json Object
+categories_controller
+  def show
+    @posts = @category.posts.order("created_at DESC")
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: [@category,@posts]}
+    end
+  end
+
+
+
+<h4>Routes</h4>
+using collection
+if you dont need id, but want to call controller action
+resources :categories, only: [ :index, :show ] do
+    resources :posts
+
+    collection do
+      get :edit
+    end
+  end
+
+
+
+<h4>Model</h4>

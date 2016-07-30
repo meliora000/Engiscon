@@ -1,9 +1,13 @@
 <style>
-  .category_list{
+  .category_list_index{
     position:fixed;
-    left:50px;
-    top:-30px;
+    color:white;
+    text-align: left;
+    top: 40%;
+    left: 80px;
+
   }
+
 
   .joseph_sign{
     position:fixed;
@@ -11,6 +15,9 @@
     top:10%;
     z-index: 1;
   }
+    h5{
+      font-size: 1em;
+    }
 </style>
 
 <ul class="cb-slideshow">
@@ -26,10 +33,9 @@
 <div class="container">
 
   <div class="clr"></div>
-  <div class="category_list">
     <%= image_tag("JosephLeeCover.png", :class => "joseph_sign") %>
 
-  <div class="category_list">
+  <div class="category_list_index">
 
     <% @categories.each do |category| %>
         <h5>
@@ -40,7 +46,8 @@
       <% end %>
 
   </div>
-
-
-  </div>
 </div>
+
+<script>
+  $(".logo").hide();
+</script>
