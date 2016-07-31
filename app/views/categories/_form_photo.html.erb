@@ -1,43 +1,45 @@
 <style>
-
-    .fullscreen{
-      text-align: center;
+    .firstscreen{
       height: 100%;
+
     }
-    .fullscreen img{
+    .firstscreen img{
       position:absolute;
+      display: none;
       height: 100%;
       left:0;
       top:0;
     }
 </style>
 
-
-
-
-
-<div class="slider fullscreen">
+<div class="firstscreen">
   <img src=<%= @posts.first.url %>>
 </div>
 
 
 <script>
-  function size_fullscreen() {
-    $(".fullscreen img").css(
+  $(".logo").show();
+  $(".firstscreen img").hide();
+
+  function size_firstscreen() {
+    $(".firstscreen img").css(
         {
-          left:($(window).width() - $(".fullscreen img").width())/2 ,
+          left:($(window).width() - $(".firstscreen img").width())/2 ,
 
         }
     )
+    $(".firstscreen img").fadeIn(1000)
   }
 
-    size_fullscreen();
+  $(".firstscreen img").on('load', function(){
+    size_firstscreen();
+  });
 
+  $(window).resize(function(){
+    size_firstscreen();
+  })
 
-    $(window).resize(function(){
-      size_fullscreen();
-    })
-
-
-
+  $(window).on('unload',function(){
+    alert("bye")
+  })
 </script>

@@ -5,6 +5,7 @@
     text-align: left;
     top: 40%;
     left: 80px;
+    z-index: 2;
 
   }
 
@@ -14,8 +15,10 @@
     left:50px;
     top:10%;
     z-index: 1;
+    display:none;
   }
     h5{
+      display: none;
       font-size: 1em;
     }
 </style>
@@ -39,9 +42,7 @@
 
     <% @categories.each do |category| %>
         <h5>
-
           <%= link_to category.title, category %>
-
         </h5>
       <% end %>
 
@@ -50,4 +51,10 @@
 
 <script>
   $(".logo").hide();
+    $(".joseph_sign").fadeIn(6000);
+
+  $("h5").each(function(index) {
+    $(this).delay(800*index).fadeIn(10000);
+  });
+
 </script>
