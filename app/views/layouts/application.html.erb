@@ -23,19 +23,13 @@
       }
       .category_list{
         position:fixed;
-        display: none;
+        visibility: block;
         color: white;
         font-size: 1em;
         left: 20px;
         top:80px;
         z-index: 10;
         text-align: left;
-      }
-      .selfbutton{
-        display: none;
-      }
-      .logo{
-        display: none;
       }
   </style>
 </head>
@@ -71,16 +65,11 @@
 
 </body>
 <script>
-
+  $(".category_list").hide();
+   $(".selfbutton").hide();
     $(".mouse_over").mouseenter(function(){
-      if ($('.selfbutton').is(':animated')) return false;
       $(".selfbutton").fadeIn(1000);
     })
-
-    $(".selfbutton").mouseleave(function(){
-      $(".selfbutton").fadeOut(1000);
-    })
-
 
     $(".main_logo").mouseenter(function(){
       if ($('.category_list').is(':animated')) return false;

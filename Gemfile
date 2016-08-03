@@ -5,7 +5,7 @@ gem 'rails', '4.2.6'
 gem 'pg'
 
 gem 'materialize-sass'
-
+gem 'carrierwave'
 
 gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets

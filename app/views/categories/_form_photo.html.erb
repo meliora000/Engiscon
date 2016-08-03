@@ -1,45 +1,251 @@
 <style>
-    .firstscreen{
-      height: 100%;
 
-    }
     .firstscreen img{
       position:absolute;
-      display: none;
-      height: 100%;
+      height:100%;
       left:0;
       top:0;
+      opacity: 0;
     }
+
+    .grid{
+      position:relative;
+      z-index: 2;
+
+    }
+    .grid ul li{
+      position:absolute;
+      background-color: rgb(0,0,0);
+      z-index: 3;
+    }
+
+    .grid ul li img{
+      opacity: 0;
+      z-index:4
+    }
+
+    li.active{
+      position:fixed!important;
+      left:0!important;
+      top:0!important;
+      width:100%!important;
+      height:100%!important;
+      z-index:30!important;
+    }
+
+    .description{
+      position:fixed;
+      left: 50%;
+      top:0;
+      color:white;
+      z-index:4;
+      display:none;
+      padding-left: 20px;
+    }
+
+
+
 </style>
 
-<div class="firstscreen">
-  <img src=<%= @posts.first.url %>>
+<div class="firstscreen" id="staggered-test">
+  <%= @post = @posts.first %>
+  <% if @post.url.present? %>
+      <img src=<%= @post.url %>>
+  <% end %>
+  <% if @post.avatar.present? %>
+      <%= image_tag @post.avatar, :width=>300 %>
+  <% end %>
 </div>
 
 
+<div class="main_photo" id="staggered-test2">
+  <div class="grid">
+    <ul>
+      <% @posts.each do |post| %>
+          <li>
+            <% if post.url.present? %>
+                <img src=<%= post.url %>>
+            <% end %>
+            <% if post.avatar.present? %>
+                <%= image_tag post.avatar, :width=>300 %>
+            <% end %>
+            <div class = "description">
+              <h3><%= post.title %></h3>
+              <p><%= post.content %></p>
+            </div>
+          </li>
+      <% end %>
+
+      <% @posts.each do |post| %>
+          <li>
+            <% if post.url.present? %>
+              <img src=<%= post.url %>>
+            <% end %>
+            <% if post.avatar.present? %>
+                <%= image_tag post.avatar, :width=>300 %>
+            <% end %>
+          </li>
+      <% end %>
+
+      <% @posts.each do |post| %>
+          <li>
+            <% if post.url.present? %>
+                <img src=<%= post.url %>>
+            <% end %>
+            <% if post.avatar.present? %>
+                <%= image_tag post.avatar, :width=>300 %>
+            <% end %>
+          </li>
+      <% end %>
+
+    </ul>
+  </div>
+
+
+</div>
+
+
+
 <script>
-  $(".logo").show();
-  $(".firstscreen img").hide();
 
-  function size_firstscreen() {
-    $(".firstscreen img").css(
-        {
-          left:($(window).width() - $(".firstscreen img").width())/2 ,
+  $(".firstscreen img").on("load",function(){
+    set_firstscreen();
+    set_main();
+    fade_firstscreen();
+  })
 
-        }
-    )
-    $(".firstscreen img").fadeIn(1000)
+  $(window).load(function() {
+    set_firstscreen();
+    set_main();
+    fade_firstscreen();
+  })
+
+  function fade_firstscreen(){
+    $(".firstscreen img").animate({
+        opacity:1,
+    },3000,function(){
+
+    })
   }
 
-  $(".firstscreen img").on('load', function(){
-    size_firstscreen();
+  function fade_main(){
+    $(".grid ul li img").each(function(index){
+      $(this).delay(100*index).animate({
+        opacity:1,
+      },5000,function(){
+
+      })
+    })
+  }
+
+
+  function set_firstscreen() {
+    $(".firstscreen img").css({
+      position:"absolute",
+      height:$(window).height(),
+      opacity:0,
+    });
+
+    $(".firstscreen img").css({
+      left:$(window).width()/2 - $(".firstscreen img").width() / 2
+    })
+  }
+
+  function set_main(){
+    $(".main_photo").css({
+      position:"absolute",
+      top:$(window).height()+50,
+      left:0,
+    })
+
+    $("li img").each(function(){
+      $(this).css({
+        width:$(window).width()/4 - 25,
+      })
+    })
+
+    x = [0,0,0,0];
+    $(".grid ul li").each(function(index){
+      $(this).css({
+        left:$(window).width()/4 * (index%4),
+        top:x[index%4]
+      })
+
+      x[index%4] = x[index%4] + $(this).find($("img")).height() + 25;
+
+  });}
+
+
+  //This is when scroll is goin down to main photo
+  var options = [
+    {selector: '#staggered-test2', offset: 400, callback: function(el) { fade_main() } },
+  ]
+
+  Materialize.scrollFire(options);
+
+
+  //when you click image
+
+  var selector = '.grid li'
+  var selected = false
+  var origin_width = null
+  $(selector).on('click', function(){
+    if(!selected){
+      $(selector).removeClass('active');
+      $(this).addClass('active');
+      $(this).find(".description").fadeIn(3000);
+      zoomImg($(this).children());
+    }
+
+    if(selected){
+      $(selector).removeClass('active');
+      resetImg($(this).children())
+      $(this).find(".description").hide();
+    }
+    selected = !selected
+
   });
 
-  $(window).resize(function(){
-    size_firstscreen();
-  })
 
-  $(window).on('unload',function(){
-    alert("bye")
-  })
+
+    //
+
+    $(".grid ul li img").on("click",function(){
+    })
+
+
+  function zoomImg(el){
+    origin_width = el.width();
+    el.css({
+      width:$(window).width()/2,
+      opacity:0,
+    })
+
+    el.css({
+      "padding-top":($(window).height() - el.height())/2,
+    })
+
+    el.animate({
+      opacity:1,
+    },3000,function(){
+
+    })
+
+    }
+
+
+
+    function resetImg(el){
+      el.css({
+        width:origin_width,
+        "padding-top":0,
+      })
+
+    }
+
+
+
+
+
+
 </script>
