@@ -7,7 +7,10 @@
     <%= render 'form_photo' %>
 <% end %>
 
+<% if @category.id == 3 %>
+    <%= render 'form_code' %>
+<% end %>
 
-<% if @category.id == 5 %>
+<% if @category.id == 4 %>
     <%= render 'form_language' %>
 <% end %>
