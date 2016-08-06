@@ -1,28 +1,4 @@
 
-<style>
-  .container{
-    color: white;
-    width:100%;
-    height:100%;
-
-  }
-
-
-    .sub{
-      display: none;
-    }
-    .main{
-      width:23%;
-      float:left;
-      margin-left: 10px;
-    }
-
-    .sub{
-      width:23%;
-      float:left;
-      margin-left: 10px;
-    }
-</style>
 
 <div class="container">
 <h1>
@@ -34,6 +10,7 @@
   <% @posts.each do |post| %>
     <% if(@language.exclude?(post.url.downcase))%>
       <% @language << (post.url.downcase) %>
+          <h3>main</h3>
           <div class="main language_<%= post.url.downcase %>">
             <h4><%= post.title %></h4>
             <p><%= post.content %></p>
@@ -46,32 +23,6 @@
       </div>
 
   <% end %>
-
   <% end %>
 
 </div>
-
-<script>
-  var selected = false
-  var language = ""
-  $(".main").on("click",function(){
-    if(!selected){
-      $(".main").each(function(){
-        $(this).hide();
-      })
-      $(this).show();
-      $(".container").css({
-        "text-align": "center",
-      })
-      language = $(this).attr('class').split(/\s+/)[1]
-    $("."+language).show();
-    }
-    if(selected) {
-      $(".sub").hide();
-      $(".main").show()
-    }
-    selected = !selected
-  })
-</script>
-
-

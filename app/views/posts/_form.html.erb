@@ -1,3 +1,15 @@
+
+
+<style>
+  .materialize-textarea {
+    position: relative; /* Allow z-index */
+    z-index: 2; /* Allow clicking through the label */
+  }
+  .input-field .materialize-textarea + label {
+    z-index: 1; /* Allow clicking through the label */
+  }
+</style>
+
 <%= form_for([@category, @post]) do |f| %>
     <div class="row">
       <div class="input-field col">
@@ -17,18 +29,26 @@
       <div class="row">
         <div class="input-field col s12">
           <%= f.text_area :content, :id => "textarea1", :class => "materialize-textarea" %>
-          <label for="textarea1">Textarea</label>
+          <label for="textarea1">Content</label>
         </div>
       </div>
     </div>
 
 
-    <div class="field">
-    <%= f.label :avatar %><br>
-    <%= f.file_field :avatar %>
-  </div>
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn">
+          <span>File</span>
+          <%= f.file_field :avatar %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+    </div>
+
+
   <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>
-

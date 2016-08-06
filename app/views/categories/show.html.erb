@@ -1,16 +1,16 @@
 
-<% if @category.id == 1 %>
+<% if @category.option.include?("Video")%>
 <%= render 'form_youtube' %>
 <% end %>
 
-<% if @category.id == 2 %>
+<% if @category.option.include?("Photo") %>
     <%= render 'form_photo' %>
 <% end %>
 
-<% if @category.id == 3 %>
+<% if @category.option.include?("Software") %>
     <%= render 'form_code' %>
 <% end %>
 
-<% if @category.id == 4 %>
+<% if @category.option.include?("Language") %>
     <%= render 'form_language' %>
 <% end %>

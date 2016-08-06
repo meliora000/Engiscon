@@ -3,7 +3,6 @@
 <head>
   <title>Josephlee</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
   <style>
@@ -23,7 +22,6 @@
       }
       .category_list{
         position:fixed;
-        visibility: block;
         color: white;
         font-size: 1em;
         left: 20px;
@@ -48,9 +46,6 @@
 <%= yield %>
 
   <div class="mouse_over"></div>
-
-
-
   <div class="fixed-action-btn horizontal selfbutton" style="bottom: 45px; right: 24px;">
     <a class="btn-floating btn-large black" href="/categories/edit">
       <i class="large material-icons">mode_edit</i>
@@ -64,21 +59,5 @@
   </div>
 
 </body>
-<script>
-  $(".category_list").hide();
-   $(".selfbutton").hide();
-    $(".mouse_over").mouseenter(function(){
-      $(".selfbutton").fadeIn(1000);
-    })
-
-    $(".main_logo").mouseenter(function(){
-      if ($('.category_list').is(':animated')) return false;
-      $(".category_list").fadeIn(1000);
-    })
-
-  $(".main_logo").mouseleave(function(){
-    $(".category_list").fadeOut(1000);
-  })
-
-</script>
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </html>

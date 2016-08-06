@@ -1,0 +1,53 @@
+<style>
+  .materialize-textarea {
+    position: relative; /* Allow z-index */
+    z-index: 2; /* Allow clicking through the label */
+  }
+  .input-field .materialize-textarea + label {
+    z-index: 1; /* Allow clicking through the label */
+  }
+</style>
+<%= form_for([@category, @post]) do |f| %>
+    <div class="row">
+      <div class="input-field col">
+        <%= f.text_field :title, :id => "text", :class => "text" %>
+        <label class="active" for="first_name2">Title</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.text_field :url, :id => "text", :class => "text" %>
+        <label class="active" for="first_name2">Image Url</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="file-field input-field">
+        <div class="btn waves-effect waves-light">
+          <i class="material-icons right">attach_file</i>
+          <span>File</span>
+          <%= f.file_field :avatar %>
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="row">
+        <div class="input-field col s12">
+          <%= f.text_area :content, :id => "textarea1", :class => "materialize-textarea" %>
+          <label for="textarea1">Content</label>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+<% end %>

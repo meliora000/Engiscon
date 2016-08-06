@@ -11,6 +11,24 @@ class CategoriesController < ApplicationController
     end
   end
 
+  def new
+    @category = Category.new
+  end
+
+  def create
+    @category = Category.new(category_params)
+    @category.option = @category.option + ", sub: " +@category.sub.join(",")
+    respond_to do |format|
+      if @category.save
+        format.html { redirect_to root_path}
+        format.json { render :show, status: :created, location: @category }
+      else
+        format.html { render :new }
+        format.json { render json: @post.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def show
     @posts = @category.posts.order("created_at ASC")
     respond_to do |format|
@@ -26,5 +44,9 @@ class CategoriesController < ApplicationController
   private
   def set_category
     @category = Category.find(params[:id])
+  end
+
+  def category_params
+    params.require(:category).permit(:title,:option, sub:[])
   end
 end
