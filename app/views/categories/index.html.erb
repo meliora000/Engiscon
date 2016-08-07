@@ -1,26 +1,29 @@
 <style>
-  .category_list_index{
-    position:fixed;
-    color:white;
-    text-align: left;
-    top: 40%;
-    left: 80px;
-    z-index: 2;
 
+  .main_signature_position{
+    position:fixed;
+    width:100%;
+    left:0;
+    top:70px;
+    z-index: 2;
+    font-family: 'Satisfy', cursive;
   }
 
 
   .joseph_sign{
-    position:fixed;
-    left:50px;
-    top:10%;
-    z-index: 1;
+    width:55%;
     display:none;
   }
-    h5{
-      display: none;
-      font-size: 1em;
-    }
+
+  .category_list_index{
+    margin-left: 40px;
+    line-height: 170%;
+    font-size:100%;
+  }
+  .category_list_index li{
+    display: none;
+  }
+
 </style>
 
 <ul class="cb-slideshow">
@@ -33,18 +36,18 @@
 </ul>
 
 
-<div class="container">
 
   <div class="clr"></div>
+  <div class="main_signature_position">
     <%= image_tag("JosephLeeCover.png", :class => "joseph_sign") %>
+    <ul class="category_list_index" style="color:white">
 
-  <div class="category_list_index">
-
-    <% @categories.each do |category| %>
-        <h5>
-          <%= link_to category.title, category %>
-        </h5>
+      <% @categories.each do |category| %>
+          <li>
+            <%= link_to category.title, category %>
+          </li>
       <% end %>
 
+    </ul>
+
   </div>
-</div>

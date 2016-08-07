@@ -12,47 +12,83 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require turbolinks
 //= require materialize-sprockets
 //= require_tree .
 
 
 
-$(document).ready(function() {
-    $('select').material_select();
-});
 
 
-//mainpage
+//** root category/view/index
+
+//faceIn category
+function fade_main(){
+    $(".grid ul li img").each(function(index){
+        $(this).delay(100*index).animate({
+            opacity:1,
+        },5000,function(){
+
+        })
+    })
+}
+//fadeIn signaure
+function signatureIn(){
+    $(".joseph_sign").fadeIn(12000);
+}
+
+//you need this because category only shown when user mouseover on logo
+function hideCategory(){
+    $(".category_list").hide();
+}
+function showCategory(){
+    $(".category_list").fadeIn(1000);
+}
+
+
 $( document ).ready(function() {
+
+    //When its not index then logo should be shown
     if ($(".joseph_sign").length){
         $(".main_logo").hide();
+        signatureIn();
+        categoryIn();
     }
     else{
         $(".main_logo").fadeIn(3000);
     }
-    $(".joseph_sign").fadeIn(6000);
-    $("h5").each(function(index) {
-        $(this).delay(800*index).fadeIn(10000);
-    });
+    hideCategory();
 
 
-    $(".category_list").hide();
     $(".selfbutton").hide();
+
+
     $(".mouse_over").mouseenter(function(){
+        if ($('.selfbutton').is(':animated')) return false;
         $(".selfbutton").fadeIn(1000);
     })
+    $(".fixed-action-btn").mouseleave(function(){
+        $(".selfbutton").fadeOut(1000);
+    })
+
 
     $(".main_logo").mouseenter(function(){
         if ($('.category_list').is(':animated')) return false;
-        $(".category_list").fadeIn(1000);
+        showCategory();
     })
 
     $(".main_logo").mouseleave(function(){
-        $(".category_list").fadeOut(1000);
+        hideCategory();
     })
 
+
+
 });
+
+function categoryIn(){
+    $(".category_list_index li").each(function(index){
+        $(this).delay(1000*index).fadeIn(6000)
+    })
+}
 
 
 
@@ -84,15 +120,6 @@ function fade_firstscreen(){
     })
 }
 
-function fade_main(){
-    $(".grid ul li img").each(function(index){
-        $(this).delay(100*index).animate({
-            opacity:1,
-        },5000,function(){
-
-        })
-    })
-}
 
 
 function set_firstscreen() {
@@ -114,7 +141,7 @@ function set_main(){
         left:0,
     })
 
-    $("li img").each(function(){
+    $(".grid li img").each(function(){
         $(this).css({
             width:$(window).width()/4 - 25,
         })
@@ -132,12 +159,23 @@ function set_main(){
     });}
 
 
+
+
 //This is when scroll is goin down to main photo
 var options = [
     {selector: '#staggered-test2', offset: 400, callback: function(el) { fade_main() } },
 ]
+function fade_main(){
+    $(".grid ul li img").each(function(index){
+        $(this).delay(100*index).animate({
+            opacity:1,
+        },5000,function(){
 
-Materialize.scrollFire(options);
+        })
+    })
+}
+
+
 
 
 //when you click image
@@ -198,3 +236,9 @@ function resetImg(el){
     })
 
 }
+
+$(document).ready(function() {
+    $('select').material_select();
+    Materialize.updateTextFields();
+    Materialize.scrollFire(options);
+});

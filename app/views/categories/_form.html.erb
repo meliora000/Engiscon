@@ -5,48 +5,26 @@
       <label class="active" for="category_title">Category Title</label>
     </div>
   </div>
- <!-- <div class="row">
-    <div class="input-field col">
-      <%= f.text_field :sub, :id => "text", :class=> "text" %>
-      <label class="active" for="category_type">Category Type</label>
+
+
+    <div class="row">
+      <div class="input-field col ">
+        <%= f.select :option, ['Video', 'Photo','Software','Language']%>
+      </div>
     </div>
-  </div>
--->
-    <%= f.select :option, ['Video', 'Photo','Software','Language']%>
-    <%= f.select :sub, options_for_select(["Location", "Date", "Logs","History"]), {}, {:multiple => true} %>
+
+    <div class="row">
+      <div class="input-field col s12">
+        <%= f.select :sub, options_for_select(["Location", "Date", "Logs","History"]), {}, {:multiple => true} %>
+      </div>
+    </div>
 
 
-
-<!--<div class="row">-->
-  <!--<div class="input-field col s12">-->
-    <!--<select>-->
-      <!--<option value="" disabled selected>None</option>-->
-      <!--<option value="1">Video</option>-->
-      <!--<option value="2">Picture</option>-->
-      <!--<option value="3">Paint</option>-->
-      <!--<option value="4">Software</option>-->
-      <!--<option value="5">Language</option>-->
-    <!--</select>-->
-    <!--<label>Main Option</label>-->
-  <!--</div>-->
-<!--</div>-->
-
-
-    <!--<div class="row">-->
-      <!--<div class="input-field col s12">-->
-        <!--<select multiple>-->
-          <!--<option value="" disabled selected>None</option>-->
-          <!--<option value="1">Location</option>-->
-          <!--<option value="2">Date</option>-->
-        <!--</select>-->
-        <!--<label>Sub Option</label>-->
-      <!--</div>-->
-    <!--</div>-->
 
 
   <div class="actions">
-    <%= f.submit %>
+    <%= button_tag( :class => "btn-floating btn-small blue lighten-3") do %>
+        <i class="material-icons">publish</i>
+    <% end %>
   </div>
-
-
 <% end %>

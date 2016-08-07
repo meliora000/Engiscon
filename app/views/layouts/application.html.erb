@@ -5,6 +5,8 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
   <style>
     .logo{
       position:fixed;
@@ -51,13 +53,12 @@
       <i class="large material-icons">mode_edit</i>
     </a>
     <ul>
-      <li><a class="btn-floating black"><i class="material-icons">insert_chart</i></a></li>
-      <li><a class="btn-floating black"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating black"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating black"><i class="material-icons">attach_file</i></a></li>
+      <li><a class="btn-floating btn-small blue lighten-3" href="/categories/new"><i class="material-icons">playlist_add</i></a></li>
+      <li><a class="btn-floating btn-small blue lighten-3"><i class="material-icons">format_quote</i></a></li>
+      <li><a class="btn-floating btn-small blue lighten-3"><i class="material-icons">publish</i></a></li>
+      <li><a class="btn-floating btn-small blue lighten-3"><i class="material-icons">attach_file</i></a></li>
     </ul>
   </div>
-
 </body>
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
 </html>
+
