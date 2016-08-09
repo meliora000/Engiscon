@@ -1,0 +1,10 @@
+<% if @comment.errors.size == 0 %>
+    $('<%=j render @comment %>').appendTo($("#comments_list_<%=@post.id %>")).hide().fadeIn('fast');
+    v = $("#comments_list_<%=@post.id %>").parent().parent().find($(".comments_list"))
+    v.animate({scrollTop: v.prop("scrollHeight")}, 0)
+
+    $("#comments_form_<%=@post.id %> form")[0].reset();
+
+<% else %>
+    alert("Please submit after commenting...");
+<% end %>

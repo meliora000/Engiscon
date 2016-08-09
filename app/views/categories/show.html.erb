@@ -1,16 +1,24 @@
+<% if @posts.first.present? %>
 
-<% if @category.option.include?("Video")%>
-<%= render 'form_youtube' %>
-<% end %>
+    <% if @category.option.include?("Video")%>
+        <%= render 'form_youtube' %>
+    <% end %>
 
-<% if @category.option.include?("Photo") %>
-    <%= render 'form_photo' %>
-<% end %>
+    <% if @category.option.include?("Photo") %>
+        <%= render 'form_photo' %>
+    <% end %>
 
-<% if @category.option.include?("Software") %>
-    <%= render 'form_code' %>
-<% end %>
+    <% if @category.option.include?("Software") %>
+        <%= render 'form_code' %>
+    <% end %>
 
-<% if @category.option.include?("Language") %>
-    <%= render 'form_language' %>
+    <% if @category.option.include?("Language") %>
+        <%= render 'form_language' %>
+    <% end %>
+
+
+<% else %>
+        <script type="text/javascript">
+          window.location.href="/categories/<%= @category.id %>/posts/new"  // put your correct path in a string here
+        </script>
 <% end %>

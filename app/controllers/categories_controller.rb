@@ -30,7 +30,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @posts = @category.posts.order("created_at ASC")
+    @posts = @category.posts
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: [@category,@posts]}

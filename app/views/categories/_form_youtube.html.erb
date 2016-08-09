@@ -1,66 +1,4 @@
-<style>
-  iframe{
-    border-radius: 25px;
-    border: 0px;
-  }
-  .main{
-    padding-top:20px;
-  }
-  h1{
-    font-size: 1.5em;
-  }
-  .impress{
-    position: relative;
-    width:100%;
-    height: 700px;
-  }
 
-  .impress iframe{
-    position:absolute;
-    width: 100%;
-    height: 100%;
-    left:0;
-    top:0;
-  }
-  .impress a{
-    position:absolute;
-    top:5px;
-    right:90px;
-  }
-
-    /*sub position*/
-    /*.modal-position{*/
-      /*position:absolute;*/
-      /*left:15%;*/
-      /*bottom:10px;*/
-    /*}*/
-
-    .sub li{
-      position:relative;
-      float:left;
-      text-align: left;
-      width:600px;
-      height:400px;
-      margin-left: 30px;
-
-
-    }
-
-    .sub iframe{
-      position:absolute;
-      width: 100%;
-      height:100%;
-      z-index: 1;
-    }
-
-    .sub a{
-      position: absolute;
-      top:5px;
-      right:90px;
-      z-index: 10;
-    }
-
-</style>
 
 
 
@@ -104,7 +42,7 @@
             <iframe src = "<%= embed(post.url) %>">
             </iframe>
 
-            <a class="waves-effect waves-light btn-floating black modal-trigger modal-position" href="#modal<%= post.id %>">
+            <a class="waves-effect waves-light btn-floating black modal-trigger modal-position info-icon" href="#modal<%= post.id %>">
               <i class="material-icons">info_outline</i></a>
             </a>
           </div>
@@ -117,8 +55,43 @@
               <p><%= simple_format(post.content) %></p>
             </div>
           </div>
+          <% if post.category.option.include?("History") %>
+              <div>
+                <a class="btn-floating btn-small blue lighten-3 comment-icon"><i class="material-icons">comment</i></a>
+                <div class="comment">
+                  <% @post = post %>
+                  <%= render "comments/comments" %>
+                </div>
+              </div>
+
+          <% end %>
         </li>
     <% end %>
       </ul>
   </div>
+
+<script>
+
+  $(document).ready(function(){
+    //set scroll down
+    //when you click comment then hide again
+    $(".comment_header").click(function(){
+      $('.comment').fadeOut(500)
+    })
+
+    //show comment when you click
+    $(".comment-icon").click(function(){
+      $('.comment').fadeOut(500)
+      $(this).parent().find($(".comment")).fadeIn(500)
+      v = $(this).parent().find(".comments_list")
+      v.animate({scrollTop: v.prop("scrollHeight")}, 0)
+    })
+
+    $('.info-icon').click(function(){
+      $('.comment').fadeOut(500);
+    })
+    $('.modal-trigger').leanModal();
+  })
+</script>
+
 </div>

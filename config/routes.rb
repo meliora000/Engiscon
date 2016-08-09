@@ -1,9 +1,17 @@
 Rails.application.routes.draw do
+  root 'categories#index'
+
+
+  resources :posts do
+    resources :comments
+  end
 
   resources :categories, only: [:new,:create]
 
   resources :categories, only: [ :index, :show ] do
-    resources :posts
+    resources :posts do
+      resources :comments
+    end
 
     collection do
       get :edit
@@ -14,7 +22,6 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'categories#index'
 
   # Example of named route that can be invoked with purchase_url(id: product.id)
   #   get 'products/:id/purchase' => 'catalog#purchase', as: :purchase

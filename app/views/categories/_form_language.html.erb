@@ -5,24 +5,24 @@
  Languages
 </h1>
 
-  <% @language = [] %>
 
-  <% @posts.each do |post| %>
-    <% if(@language.exclude?(post.url.downcase))%>
-      <% @language << (post.url.downcase) %>
-          <h3>main</h3>
-          <div class="main language_<%= post.url.downcase %>">
-            <h4><%= post.title %></h4>
-            <p><%= post.content %></p>
-          </div>
-    <% else %>
-      <div class="sub language_<%= post.url.downcase %>">
-        <h1>sub</h1>
-        <h4><%= post.title %></h4>
-        <p><%= post.content %></p>
-      </div>
+  <ul class="collapsible" data-collapsible="accordion">
 
-  <% end %>
-  <% end %>
 
-</div>
+    <% @language = "" %>
+    <% @posts.ordered_by_name.each do |post| %>
+        <% if @language != post.url %>
+          <a><h4><%= post.url %></h4></a>
+          <% @language = post.url %>
+        <% end %>
+        <li>
+          <div class="collapsible-header"><%= post.title %></div>
+          <div class="collapsible-body"><p><%= post.content %></p></div>
+        </li>
+
+    <% end %>
+
+  </ul>
+
+  </div>
+

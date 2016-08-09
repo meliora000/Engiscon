@@ -26,14 +26,14 @@ function fade_main(){
     $(".grid ul li img").each(function(index){
         $(this).delay(100*index).animate({
             opacity:1,
-        },5000,function(){
+        },3000,function(){
 
         })
     })
 }
 //fadeIn signaure
 function signatureIn(){
-    $(".joseph_sign").fadeIn(12000);
+    $(".joseph_sign").fadeIn(6000);
 }
 
 //you need this because category only shown when user mouseover on logo
@@ -86,7 +86,7 @@ $( document ).ready(function() {
 
 function categoryIn(){
     $(".category_list_index li").each(function(index){
-        $(this).delay(1000*index).fadeIn(6000)
+        $(this).delay(200*index).fadeIn(4000)
     })
 }
 
