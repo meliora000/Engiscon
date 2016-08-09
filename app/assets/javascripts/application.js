@@ -177,31 +177,6 @@ function fade_main(){
 
 
 
-
-//when you click image
-
-var selector = '.grid li'
-var selected = false
-var origin_width = null
-$(selector).on('click', function(){
-    if(!selected){
-        $(selector).removeClass('active');
-        $(this).addClass('active');
-        $(this).find(".description").fadeIn(3000);
-        zoomImg($(this).children());
-    }
-
-    if(selected){
-        $(selector).removeClass('active');
-        resetImg($(this).children())
-        $(this).find(".description").hide();
-    }
-    selected = !selected
-
-});
-
-
-
 //
 
 $(".grid ul li img").on("click",function(){

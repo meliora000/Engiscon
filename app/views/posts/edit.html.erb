@@ -1,3 +1,30 @@
-<h1>Editing Post</h1>
+<style>
+  .center{
+    position:absolute;
+    width:600px;
+    left:50%;
+    margin-left: -300px;
+  }
+</style>
 
-<%= render 'form' %>
+<div class="center">
+  <h5>Create Post "<%= @category.title %>"</h5>
+
+  <div>
+    <div>
+      <% if @category.option.include?("Photo")%>
+          <%= render 'form_photo' %>
+      <% end %>
+
+
+      <% if @category.option.include?("Video")%>
+          <%= render 'form_video' %>
+      <% end %>
+
+      <% if @category.option.include?("Language")%>
+          <%= render 'form_language' %>
+      <% end %>
+    </div>
+
+  </div>
+</div>

@@ -16,6 +16,11 @@
         <%= render 'form_language' %>
     <% end %>
 
+    <script>
+      $(document).ready(function(){
+        $("#application_create_icon").attr("href","/categories/<%= @category.id %>/posts/new")
+      })
+    </script>
 
 <% else %>
         <script type="text/javascript">
