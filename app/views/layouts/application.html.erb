@@ -3,62 +3,64 @@
 <head>
   <title>Josephlee</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag "https://fonts.googleapis.com/icon?family=Material+Icons" %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
-  <style>
-    .logo{
-      position:fixed;
-      top: 30px;
-      left: 10px;
-      z-index: 10;
-    }
-    .mouse_over{
-      position:fixed;
-      background-color: rgba(0,0,0,0);
-      width:100px;
-      height: 100px;
-      bottom:0;
-      right:0;
-      }
-      .category_list{
-        position:fixed;
-        color: white;
-        font-size: 1em;
-        left: 20px;
-        top:80px;
-        z-index: 10;
-        text-align: left;
-      }
-  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <%= csrf_meta_tags %>
 </head>
 <body>
-  <div class = "main_logo">
-  <%= link_to image_tag("JosephLeeCover.png", :class => "logo", :size => "120x50" ),root_path %>
-  <div class = category_list>
-  <ul>
-    <% Category.all.each do |category| %>
-    <li>          <%= link_to category.title, category %></li>
-    <% end %>
-  </ul>
+<nav class="teal" role="navigation">
+  <div class="nav-wrapper container">
+    <a id="logo-container" href="#" class="brand-logo">Logo</a>
+    <ul class="right hide-on-med-and-down">
+      <li><a href="#">Navbar Link</a></li>
+    </ul>
+
+    <ul id="nav-mobile" class="side-nav">
+      <li><a href="#">Navbar Link</a></li>
+      <li><a href="#">Navbar Link</a></li>
+      <li><a href="#">Navbar Link</a></li>
+    </ul>
+    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
   </div>
-  </div>
+</nav>
 
 <%= yield %>
 
-  <div class="mouse_over"></div>
-  <div class="fixed-action-btn horizontal selfbutton" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-large black" href="/categories/edit">
-      <i class="large material-icons">mode_edit</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating btn-small blue lighten-3" href="/categories/new"><i class="material-icons">playlist_add</i></a></li>
-      <li><a id = "application_create_icon" class="btn-floating btn-small blue lighten-3"><i class="material-icons">format_quote</i></a></li>
-      <li><a class="btn-floating btn-small blue lighten-3"><i class="material-icons">publish</i></a></li>
-      <li><a class="btn-floating btn-small blue lighten-3"><i class="material-icons">attach_file</i></a></li>
-    </ul>
+<footer class="page-footer teal">
+  <div class="container">
+    <div class="row">
+      <div class="col l6 s12">
+        <h5 class="white-text">Company Bio</h5>
+        <p class="grey-text text-lighten-4"></p>
+
+
+      </div>
+      <div class="col l3 s12">
+        <h5 class="white-text">Settings</h5>
+        <ul>
+          <li><a class="white-text" href="#!">Link 1</a></li>
+          <li><a class="white-text" href="#!">Link 2</a></li>
+          <li><a class="white-text" href="#!">Link 3</a></li>
+          <li><a class="white-text" href="#!">Link 4</a></li>
+        </ul>
+      </div>
+      <div class="col l3 s12">
+        <h5 class="white-text">Connect</h5>
+        <ul>
+          <li><a class="white-text" href="#!">Link 1</a></li>
+          <li><a class="white-text" href="#!">Link 2</a></li>
+          <li><a class="white-text" href="#!">Link 3</a></li>
+          <li><a class="white-text" href="#!">Link 4</a></li>
+        </ul>
+      </div>
+    </div>
   </div>
+  <div class="footer-copyright">
+    <div class="container">
+      Made by <a class="brown-text text-lighten-3" href="http://materializecss.com">Joseph Lee</a>
+    </div>
+  </div>
+</footer>
 </body>
 </html>
 

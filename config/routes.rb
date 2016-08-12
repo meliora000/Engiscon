@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  root 'categories#index'
-
+  root 'welcome#index'
 
   resources :posts do
     resources :comments

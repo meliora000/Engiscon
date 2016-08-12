@@ -3,12 +3,6 @@ class CategoriesController < ApplicationController
   before_action :set_category, only: [:show]
 
   def index
-    @categories = Category.all
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @categories}
-    end
   end
 
   def new
