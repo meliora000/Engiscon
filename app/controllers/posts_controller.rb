@@ -1,9 +1,9 @@
 class PostsController < ApplicationController
-  before_action :set_category
+  include ApplicationHelper
+  before_action :set_category, except: [:index]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
-    @posts = @category.posts.all
   end
 
   def show
