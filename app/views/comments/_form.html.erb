@@ -4,8 +4,13 @@
       <div class='form-inputs'>
         <%= f.input :body, label: false, placeholder: 'Add a comment.',  input_html: { rows: 5 } %>
       </div>
+
+      <%= f.hidden_field :title, :value => @suboption%>
+
+
       <div class='form-actions'>
         <%= f.button :submit %>
+
       </div>
   <% end %>
 </div>

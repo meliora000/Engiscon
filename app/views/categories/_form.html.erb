@@ -6,28 +6,29 @@
           <%= f.text_field :title, :id => "text", :class=> "text" %>
           <label class="active" for="category_title">Category Title</label>
         </div>
+          </div>
 
+           <div class="row">
+            <div class="input-field col ">
+              <%= f.select :option, ['Video', 'Photo','Software','Language']%>
+            </div>
+           </div>
 
-
-          <div class="input-field col ">
-            <%= f.select :option, ['Video', 'Photo','Software','Language']%>
+          <div class="row">
+            <div class="input-field col">
+              <%= f.select :sub, options_for_select(["Location", "Date", "Log","History"]), {}, {:multiple => true} %>
+            </div>
           </div>
 
 
 
-          <div class="input-field col s12">
-            <%= f.select :sub, options_for_select(["Location", "Date", "Logs","History"]), {}, {:multiple => true} %>
-          </div>
-
-
-
-
+          <div class="row">
           <div class="actions">
-        <%= button_tag( :class => "btn-floating btn-small blue lighten-3") do %>
+             <%= button_tag( :class => "btn-floating btn-small teal lighten-2") do %>
                 <i class="material-icons">publish</i>
             <% end %>
           </div>
-        </div>
+          </div>
         <% end %>
   </div>
 </div>

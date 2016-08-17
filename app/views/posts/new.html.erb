@@ -1,18 +1,9 @@
-<style>
-  .center{
-    position:absolute;
-    width:600px;
-    left:50%;
-    margin-left: -300px;
-  }
-</style>
+<div class="container">
+  <div class="section">
 
-<div class="center">
-<h5>Create Post "<%= @category.title %>"</h5>
 
-<div>
-  <div>
-      <% if @category.option.include?("Photo")%>
+
+  <% if @category.option.include?("Photo")%>
           <%= render 'form_photo' %>
       <% end %>
 
@@ -24,7 +15,6 @@
     <% if @category.option.include?("Language")%>
           <%= render 'form_language' %>
       <% end %>
-  </div>
 
-</div>
+  </div>
 </div>

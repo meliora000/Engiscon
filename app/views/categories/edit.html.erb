@@ -1,41 +1,29 @@
-<style>
-  .edit_main{
-    width:100%;
-    height:100%;
-    left:0px;
-    right:0px;
-    padding-left:100px;
-    padding-top:100px;
-  }
-
-    ol{
-      line-height: 300%;
-      float:left;
-      margin-right:100px;
-    }
-
-    h4{
-      padding-bottom: 20px;
-    }
-</style>
-
-<div class ="edit_main">
-  <ul>
-<% @categories.each do |category| %>
-  <ol>
-  <h4>
-    <%= link_to category.title, new_category_post_path(category), class:"wirte_post"%>
-  </h4>
-
-    <% category.posts.each do |post| %>
-    <li>
-      <%= link_to post.title, edit_category_post_path(post.category, post) %>
-    </li>
-  <% end %>
 
 
 
-  </ol>
-<% end %>
-  </ul>
+<div class="container">
+  <div class="section">
+
+
+
+      <ul>
+        <% @categories.each do |category| %>
+            <div class="row">
+            <ol>
+              <h4>
+                <%= link_to category.title, new_category_post_path(category), class:"wirte_post"%>
+              </h4>
+
+              <% category.posts.each do |post| %>
+                  <li>
+                    <%= link_to post.title, edit_category_post_path(post.category, post) %>
+                  </li>
+              <% end %>
+            </ol>
+            </div>
+        <% end %>
+      </ul>
+
+
+  </div>
 </div>

@@ -18,10 +18,30 @@
           <% end %>
 
 
-          <!-- SUB Option 뼐 디자인 -->
-          <% if post.category.option.include?("History") %>
-          
-          <% end %>
+          <!-- SUB Option 디자인 -->
+          <div class="sub">
+            <% if post.category.option.include?("History") %>
+                  <% @suboption = "History" %>
+                  <a class="btn-floating btn-small teal sub"><i class="material-icons">comment</i></a>
+                  <div class="comment">
+                    <% @post = post %>
+                    <%= render "comments/comments" %>
+                  </div>
+            <% end %>
+
+            <% if post.category.option.include?("Log") %>
+                <% @suboption = "Log" %>
+                  <p class="element" style="display: none;">History</p>
+                  <a class="btn-floating btn-small teal sub"><i class="material-icons">replay</i></a>
+                  <div class="comment">
+                    <% @post = post %>
+                    <%= render "comments/comments" %>
+                  </div>
+            <% end %>
+          </div>
+
+
+
         </div>
       </div>
     <% end %>
