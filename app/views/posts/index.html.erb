@@ -1,9 +1,29 @@
+<style>
+  .comment{
+    /*display:none;*/
+    position:fixed;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    right:0px;
+    top:0px;
+    background-color: white;
+    z-index: 102;
+    display: none;
+    overflow-y: scroll;
+    height:70%;
+  }
+    .sub{
+      z-index: 101;
+    }
+</style>
+
 <div class="container">
   <div class="section">
 
     <!--   All Post   -->
     <% Post.all.each do |post| %>
-      <div class="row">
+      <div class="row" style="position:relative">
         <div class="col s12">
           <h5><%= post.title %> // <%= post.category.option %></h5>
 
@@ -19,29 +39,29 @@
 
 
           <!-- SUB Option 디자인 -->
-          <div class="sub">
+          <div class="sub" style="position:absolute; left:0; top:0">
             <% if post.category.option.include?("History") %>
                   <% @suboption = "History" %>
-                  <a class="btn-floating btn-small teal sub"><i class="material-icons">comment</i></a>
+                <div>
+                  <a class="btn-floating btn-small teal sub-button"><i class="material-icons">comment</i></a>
                   <div class="comment">
                     <% @post = post %>
                     <%= render "comments/comments" %>
                   </div>
+                </div>
             <% end %>
 
             <% if post.category.option.include?("Log") %>
                 <% @suboption = "Log" %>
-                  <p class="element" style="display: none;">History</p>
-                  <a class="btn-floating btn-small teal sub"><i class="material-icons">replay</i></a>
-                  <div class="comment">
-                    <% @post = post %>
-                    <%= render "comments/comments" %>
+                  <div>
+                    <a class="btn-floating btn-small teal sub-button"><i class="material-icons">replay</i></a>
+                      <div class="comment">
+                        <% @post = post %>
+                        <%= render "comments/comments" %>
+                      </div>
                   </div>
             <% end %>
           </div>
-
-
-
         </div>
       </div>
     <% end %>
@@ -55,7 +75,12 @@
     $('.materialboxed').materialbox();
     $(".plyr__controls").click(function(){
     })
-  });
+    $(".sub-button").click(function(){
+      $(".comment").hide();
+      $(this).parent().find(".comment").fadeIn(1500)
+    })
 
+
+  });
 
 </script>

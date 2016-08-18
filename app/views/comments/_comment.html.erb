@@ -1,6 +1,5 @@
 <% if(comment.title == @suboption) %>
 <li id="comment_<%=comment.id %>">
-  <%= comment.body %>,
-  <%= link_to "delete", [comment.post, comment], method: :delete, remote: true, data: { confirm: "Are you sure?" } %>
+  <%= simple_format(comment.body) %>
 </li>
 <% end %>
