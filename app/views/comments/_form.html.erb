@@ -2,14 +2,14 @@
 <div id="comments_form_<%=@post.id%>">
   <%= simple_form_for([@category,@post, comment], remote: true ) do | f | %>
       <div class='form-inputs'>
-        <%= f.input :body, label: false, placeholder: 'Add a comment.',  input_html: { rows: 5 } %>
+        <%= f.input :body, :class=>"textarea" ,label: false, placeholder: 'Add a comment.',  input_html: { rows: 5 } %>
       </div>
 
       <%= f.hidden_field :title, :value => @suboption%>
 
 
       <div class='form-actions'>
-        <%= f.button :submit %>
+        <%= f.button :submit, :class=>"comment_submit_btn" %>
 
       </div>
   <% end %>

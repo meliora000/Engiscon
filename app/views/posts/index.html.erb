@@ -1,3 +1,7 @@
+
+
+
+
 <style>
   .comment{
     /*display:none;*/
@@ -9,7 +13,7 @@
     top:0px;
     background-color: white;
     z-index: 102;
-    display: none;
+    display: block;
     overflow-y: scroll;
     height:70%;
   }
@@ -83,4 +87,14 @@
 
   });
 
+    //when comment create button click and if textarea is not empty
+    $()
+
+
+    $(".comment_submit_btn").click(function(){
+      v = $(this).parent().parent().find($("textarea")).val()
+      x = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + v + "</li>"
+
+      $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(x)
+    })
 </script>

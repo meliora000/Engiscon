@@ -1,5 +1,5 @@
 <% if(comment.title == @suboption) %>
 <li id="comment_<%=comment.id %>">
-  <%= simple_format(comment.body) %>
+  <%= comment.body %>
 </li>
 <% end %>
