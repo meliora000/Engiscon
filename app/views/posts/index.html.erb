@@ -3,6 +3,9 @@
 
 
 <style>
+  .sub-button{
+    margin-bottom: 10px;
+  }
   .comment{
     /*display:none;*/
     position:fixed;
@@ -16,6 +19,7 @@
     display: block;
     overflow-y: scroll;
     height:70%;
+    display: none;
   }
     .sub{
       z-index: 101;
@@ -29,6 +33,7 @@
     <% Post.all.each do |post| %>
       <div class="row" style="position:relative">
         <div class="col s12">
+          <p style="margin-bottom: -15px;"><i><%= post.category.title %></i></p>
           <h5><%= post.title %> // <%= post.category.option %></h5>
 
           <!-- MAIN Option 별 디자인-->
@@ -37,13 +42,17 @@
                 <div data-video-id="<%= embed(post.url) %>" data-type="youtube"></div>
               </div>
           <% elsif post.category.option.include?("Photo") %>
-            <img class="materialboxed" src="<%= post.url %>" width="100%">
+              <% if post.url.present? %>
+                <img class="materialboxed" src="<%= post.url %>" width="100%">
+              <% elsif post.avatar.present? %>
+                <%= image_tag(post.avatar, :class => "materialboxed" ,style: 'width:100%') %>
+              <% end %>
 
           <% end %>
 
 
           <!-- SUB Option 디자인 -->
-          <div class="sub" style="position:absolute; left:0; top:0">
+          <div class="sub" style="position:absolute; left:-30px; top:40px">
             <% if post.category.option.include?("History") %>
                   <% @suboption = "History" %>
                 <div>
@@ -75,13 +84,24 @@
 
 <script>
   $(document).ready(function(){
+
     plyr.setup();
     $('.materialboxed').materialbox();
     $(".plyr__controls").click(function(){
     })
     $(".sub-button").click(function(){
-      $(".comment").hide();
-      $(this).parent().find(".comment").fadeIn(1500)
+      $(".comment").each(function() {
+        $(this).hide();
+      });
+
+      var comment = $(this).parent().find(".comment")
+      comment.addClass("animated fadeInRight").show().delay(1000).queue(function() {  // Wait for 1 second.
+        $(this).removeClass("animated fadeInRight").dequeue();
+      });
+
+      var height = comment[0].scrollHeight;
+      comment.scrollTop(height)
+
     })
 
 
@@ -92,9 +112,24 @@
 
 
     $(".comment_submit_btn").click(function(){
-      v = $(this).parent().parent().find($("textarea")).val()
-      x = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + v + "</li>"
+      var tarea = $(this).parent().parent().find($("textarea"))
+      var text = tarea.val()
+      x = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + text + "</li>"
+      tarea.val("")
 
-      $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(x)
-    })
+      $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(x).delay(1000).queue(function() {  // Wait for 1 second.
+        $(this).find($("li")).removeClass("animated fadeInUp").dequeue();
+      });
+      var comment = $(this).parent().parent().parent().parent().parent().parent().parent().find(".comment")
+      var height = comment[0].scrollHeight;
+      comment.scrollTop(height)
+      })
+    //when comment open and clikc you should close window
+//      $(".comment").click(function(){
+//        $(this).addClass("animated fadeOutRight").delay(1000).queue(function(){
+//          $(this).removeClass("animated fadeOutRight").hide();
+//        })
+//    }).children().click(function(e) {
+//        return false
+//      })
 </script>
