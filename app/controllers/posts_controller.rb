@@ -1,9 +1,13 @@
 class PostsController < ApplicationController
   include ApplicationHelper
-  before_action :set_category, except: [:index]
+  before_action :set_category, except: [:index, :dance]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   def index
+  end
+
+  def dance
+
   end
 
   def show

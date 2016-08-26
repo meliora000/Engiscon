@@ -1,0 +1,40 @@
+<div class="container">
+  <div class="section">
+    <!--   All Post   -->
+    <div class="row" style="position:relative">
+    <% Post.all.each do |post| %>
+          <div class="col s12 m6">
+            <h5><%= post.title %></h5>
+            <!-- MAIN Option 별 디자인-->
+            <div class="z-depth-5">
+              <% if post.category.option.include?("Video") %>
+                  <div class="plyr materialboxed">
+                    <div data-video-id="<%= post.url %>" data-type="youtube"></div>
+                  </div>
+              <% elsif post.category.option.include?("Photo") %>
+                  <% if post.url.present? %>
+                      <img class="materialboxed" src="<%= post.url %>" width="100%">
+                  <% elsif post.avatar.present? %>
+                      <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+                  <% end %>
+              <% elsif post.category.option.include?("Software") %>
+                  <% if post.url.present? %>
+                      <img class="materialboxed" src="<%= post.url %>" width="100%">
+                  <% elsif post.avatar.present? %>
+                      <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+                  <% end %>
+              <% end %>
+            </div>
+
+            <!-- SUB Option 디자인 -->
+          </div>
+    <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function(){
+    plyr.setup()
+  })
+</script>

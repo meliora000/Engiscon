@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
     collection do
       get :index
+      get :dance
     end
   end
 

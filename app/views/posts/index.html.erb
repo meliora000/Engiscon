@@ -47,12 +47,18 @@
                   <% elsif post.avatar.present? %>
                       <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
                   <% end %>
+              <% elsif post.category.option.include?("Software") %>
+                  <% if post.url.present? %>
+                      <img class="materialboxed" src="<%= post.url %>" width="100%">
+                  <% elsif post.avatar.present? %>
+                      <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+                  <% end %>
               <% end %>
             </div>
 
             <!-- SUB Option 디자인 -->
             <div class="sub" style="position:absolute; right:20px; bottom:0px">
-              <% if post.category.option.include?("History") %>
+              <% if post.category.option.include?("Comment") %>
                   <% @suboption = "Comment" %>
                   <div>
                     <a class="btn-floating btn-small teal sub-button"><i class="material-icons">comment</i></a>
@@ -138,6 +144,7 @@
     $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(text_list)
   })
 
+  $(".username").text("Joseph Lee")
 
 //  $(".comment_submit_btn").click(function () {
 //    var tarea = $(this).parent().parent().find($("textarea"))
