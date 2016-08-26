@@ -1,8 +1,8 @@
 <style>
-  .center{
-    position:absolute;
-    width:600px;
-    left:50%;
+  .center {
+    position: absolute;
+    width: 600px;
+    left: 50%;
     margin-left: -300px;
   }
 </style>
@@ -12,16 +12,16 @@
 
   <div>
     <div>
-      <% if @category.option.include?("Photo")%>
+      <% if @category.option.include?("Photo") %>
           <%= render 'form_photo' %>
       <% end %>
 
 
-      <% if @category.option.include?("Video")%>
+      <% if @category.option.include?("Video") %>
           <%= render 'form_video' %>
       <% end %>
 
-      <% if @category.option.include?("Language")%>
+      <% if @category.option.include?("Language") %>
           <%= render 'form_language' %>
       <% end %>
     </div>

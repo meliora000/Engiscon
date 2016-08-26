@@ -1,0 +1,32 @@
+<div class="row">
+  <div class="col s12">
+    <!--if post is video related-->
+    <% if post.category.option.include?("Video") %>
+        <div class="plyr materialboxed">
+          <div data-video-id="<%= post.url %>" data-type="youtube"></div>
+        </div>
+    <% end %>
+    <!--if post is image related-->
+    <% if post.category.option.include?("Photo") %>
+        <% if post.url.present? %>
+            <img class="materialboxed" src="<%= post.url %>" width="100%">
+        <% elsif post.avatar.present? %>
+            <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+        <% end %>
+
+    <% end %>
+
+    <% if post.category.option.include?("Software") %>
+        <% if post.url.present? %>
+            <img class="materialboxed" src="<%= post.url %>" width="100%">
+        <% elsif post.avatar.present? %>
+            <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+        <% end %>
+
+    <% end %>
+
+    <!--if post is software related-->
+
+    <!--if post is languages related-->
+  </div>
+</div>

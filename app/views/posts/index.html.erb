@@ -1,101 +1,100 @@
-
-
-
-
 <style>
-  .sub-button{
+  .sub-button {
     margin-bottom: 10px;
   }
-  .comment{
+
+  .comment {
     /*display:none;*/
-    position:fixed;
+    position: fixed;
     padding-left: 20px;
     padding-right: 20px;
     padding-bottom: 20px;
-    right:0px;
-    top:0px;
+    right: 0px;
+    top: 0px;
     background-color: white;
     z-index: 102;
     display: block;
     overflow-y: scroll;
-    height:70%;
+    width:50%;
+    height: 70%;
     display: none;
   }
-    .sub{
-      z-index: 101;
-    }
+
+  .sub {
+    z-index: 101;
+  }
 </style>
 
 <div class="container">
   <div class="section">
-
     <!--   All Post   -->
     <% Post.all.each do |post| %>
-      <div class="row" style="position:relative">
-        <div class="col s12">
-          <p style="margin-bottom: -15px;"><i><%= post.category.title %></i></p>
-          <h5><%= post.title %> // <%= post.category.option %></h5>
+        <div class="row" style="position:relative">
+          <div class="col s12">
+            <a href="/categories/<%= post.category_id %>">
+              <p style="margin-bottom: -15px;"><i><%= post.category.title %></i></p>
+            </a>
+            <h5><%= post.title %></h5>
+            <!-- MAIN Option 별 디자인-->
+            <div class="z-depth-5">
+              <% if post.category.option.include?("Video") %>
+                  <div class="plyr materialboxed">
+                    <div data-video-id="<%= post.url %>" data-type="youtube"></div>
+                  </div>
+              <% elsif post.category.option.include?("Photo") %>
+                  <% if post.url.present? %>
+                      <img class="materialboxed" src="<%= post.url %>" width="100%">
+                  <% elsif post.avatar.present? %>
+                      <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+                  <% end %>
+              <% end %>
+            </div>
 
-          <!-- MAIN Option 별 디자인-->
-          <% if post.category.option.include?("Video") %>
-              <div class="plyr materialboxed">
-                <div data-video-id="<%= embed(post.url) %>" data-type="youtube"></div>
-              </div>
-          <% elsif post.category.option.include?("Photo") %>
-              <% if post.url.present? %>
-                <img class="materialboxed" src="<%= post.url %>" width="100%">
-              <% elsif post.avatar.present? %>
-                <%= image_tag(post.avatar, :class => "materialboxed" ,style: 'width:100%') %>
+            <!-- SUB Option 디자인 -->
+            <div class="sub" style="position:absolute; right:20px; bottom:0px">
+              <% if post.category.option.include?("History") %>
+                  <% @suboption = "Comment" %>
+                  <div>
+                    <a class="btn-floating btn-small teal sub-button"><i class="material-icons">comment</i></a>
+                    <div class="comment">
+                      <% @post = post %>
+                      <%= render "comments/comments" %>
+                    </div>
+                  </div>
               <% end %>
 
-          <% end %>
-
-
-          <!-- SUB Option 디자인 -->
-          <div class="sub" style="position:absolute; left:-30px; top:40px">
-            <% if post.category.option.include?("History") %>
-                  <% @suboption = "History" %>
-                <div>
-                  <a class="btn-floating btn-small teal sub-button"><i class="material-icons">comment</i></a>
-                  <div class="comment">
-                    <% @post = post %>
-                    <%= render "comments/comments" %>
-                  </div>
-                </div>
-            <% end %>
-
-            <% if post.category.option.include?("Log") %>
-                <% @suboption = "Log" %>
+              <% if post.category.option.include?("Log") %>
+                  <% @suboption = "Log" %>
                   <div>
                     <a class="btn-floating btn-small teal sub-button"><i class="material-icons">replay</i></a>
-                      <div class="comment">
-                        <% @post = post %>
-                        <%= render "comments/comments" %>
-                      </div>
+                    <div class="comment">
+                      <% @post = post %>
+                      <%= render "comments/comments" %>
+                    </div>
                   </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
-      </div>
     <% end %>
   </div>
 </div>
 
 
 <script>
-  $(document).ready(function(){
+  $(document).ready(function () {
 
     plyr.setup();
     $('.materialboxed').materialbox();
-    $(".plyr__controls").click(function(){
+    $(".plyr__controls").click(function () {
     })
-    $(".sub-button").click(function(){
-      $(".comment").each(function() {
+    $(".sub-button").click(function () {
+      $(".comment").each(function () {
         $(this).hide();
       });
 
       var comment = $(this).parent().find(".comment")
-      comment.addClass("animated fadeInRight").show().delay(1000).queue(function() {  // Wait for 1 second.
+      comment.addClass("animated fadeInRight").show().delay(1000).queue(function () {  // Wait for 1 second.
         $(this).removeClass("animated fadeInRight").dequeue();
       });
 
@@ -107,29 +106,58 @@
 
   });
 
-    //when comment create button click and if textarea is not empty
-    $()
+  //when comment create button click and if textarea is not empty
+  $(".comment_header").click(function(){
+    $(this).closest($(".comment")).addClass("animated fadeOutRight").delay(1000).queue(function(){
+      $(this).removeClass("animated fadeOutRight").dequeue();
+      $(this).removeClass("animated fadeOutRight").hide().dequeue();
+    })
+  })
+
+  $.fn.extend({
+    animateCss: function (animationName) {
+      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      if(animationName.indexOf("Out") == -1){
+        $(this).show()
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+          $(this).removeClass('animated ' + animationName);
+        });
+      }
+      else{
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+          $(this).removeClass('animated ' + animationName);
+          $(this).hide();
+        });
+      }
+    }
+  });
+
+  $(".comment_submit_btn").click(function(){
+    var text = $(this).parent().parent().find($("textarea"))
+    var text_list = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + text.val() + "</li>"
+    $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(text_list)
+  })
 
 
-    $(".comment_submit_btn").click(function(){
-      var tarea = $(this).parent().parent().find($("textarea"))
-      var text = tarea.val()
-      x = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + text + "</li>"
-      tarea.val("")
-
-      $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(x).delay(1000).queue(function() {  // Wait for 1 second.
-        $(this).find($("li")).removeClass("animated fadeInUp").dequeue();
-      });
-      var comment = $(this).parent().parent().parent().parent().parent().parent().parent().find(".comment")
-      var height = comment[0].scrollHeight;
-      comment.scrollTop(height)
-      })
-    //when comment open and clikc you should close window
-//      $(".comment").click(function(){
-//        $(this).addClass("animated fadeOutRight").delay(1000).queue(function(){
-//          $(this).removeClass("animated fadeOutRight").hide();
-//        })
-//    }).children().click(function(e) {
-//        return false
-//      })
+//  $(".comment_submit_btn").click(function () {
+//    var tarea = $(this).parent().parent().find($("textarea"))
+//    var text = tarea.val()
+//    x = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + text + "</li>"
+//    tarea.val("")
+//
+//    $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(x).delay(1000).queue(function () {  // Wait for 1 second.
+//      $(this).find($("li")).removeClass("animated fadeInUp").dequeue();
+//    });
+//    var comment = $(this).parent().parent().parent().parent().parent().parent().parent().find(".comment")
+//    var height = comment[0].scrollHeight;
+//    comment.scrollTop(height)
+//  })
+  //when comment open and clikc you should close window
+  //      $(".comment").click(function(){
+  //        $(this).addClass("animated fadeOutRight").delay(1000).queue(function(){
+  //          $(this).removeClass("animated fadeOutRight").hide();
+  //        })
+  //    }).children().click(function(e) {
+  //        return false
+  //      })
 </script>

@@ -1,17 +1,13 @@
-
-
-
 <div class="container">
   <div class="section">
 
 
-
-      <ul>
-        <% @categories.each do |category| %>
-            <div class="row">
+    <ul>
+      <% @categories.each do |category| %>
+          <div class="row">
             <ol>
               <h4>
-                <%= link_to category.title, new_category_post_path(category), class:"wirte_post"%>
+                <%= link_to category.title, new_category_post_path(category), class: "wirte_post" %>
               </h4>
 
               <% category.posts.each do |post| %>
@@ -20,9 +16,9 @@
                   </li>
               <% end %>
             </ol>
-            </div>
-        <% end %>
-      </ul>
+          </div>
+      <% end %>
+    </ul>
 
 
   </div>

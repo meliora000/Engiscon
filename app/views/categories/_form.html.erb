@@ -1,40 +1,39 @@
 <div class="container">
   <div class="section">
     <%= form_for(@category) do |f| %>
-         <div class="row">
+        <div class="row">
           <div class="input-field col">
-          <%= f.text_field :title, :id => "text", :class=> "text" %>
-          <label class="active" for="category_title">Category Title</label>
+            <%= f.text_field :title, :id => "text", :class => "text" %>
+            <label class="active" for="category_title">Category Title</label>
+          </div>
         </div>
+
+        <div class="row">
+          <div class="input-field col ">
+            <%= f.select :option, ['Video', 'Photo', 'Software', 'Language'] %>
           </div>
+        </div>
 
-           <div class="row">
-            <div class="input-field col ">
-              <%= f.select :option, ['Video', 'Photo','Software','Language']%>
-            </div>
-           </div>
-
-          <div class="row">
-            <div class="input-field col">
-              <%= f.select :sub, options_for_select(["Location", "Date", "Log","History"]), {}, {:multiple => true} %>
-            </div>
+        <div class="row">
+          <div class="input-field col">
+            <%= f.select :sub, options_for_select(["Location", "Date", "Log", "Comment"]), {}, {:multiple => true} %>
           </div>
+        </div>
 
 
-
-          <div class="row">
+        <div class="row">
           <div class="actions">
-             <%= button_tag( :class => "btn-floating btn-small teal lighten-2") do %>
+            <%= button_tag(:class => "btn-floating btn-small teal lighten-2") do %>
                 <i class="material-icons">publish</i>
             <% end %>
           </div>
-          </div>
-        <% end %>
+        </div>
+    <% end %>
   </div>
 </div>
 
 <script>
-  $(document).ready(function() {
+  $(document).ready(function () {
     $('select').material_select();
   });
 </script>

@@ -1,29 +1,108 @@
-<% if @posts.first.present? %>
+<style>
+  .input-fixed{
+    position: fixed;
+    width:400px;
+    height:600px;
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    display: none;
+  }
+  .input-background{
+    position:fixed;
+    background-color: rgba(0,0,0,.5);
+    left:0;
+    top:0;
+    width: 100%;
+    height:100%;
+    display:none;
+  }
+</style>
 
-    <% if @category.option.include?("Video")%>
-        <%= render 'form_youtube' %>
-    <% end %>
 
-    <% if @category.option.include?("Photo") %>
-        <%= render 'form_photo' %>
-    <% end %>
 
-    <% if @category.option.include?("Software") %>
-        <%= render 'form_code' %>
-    <% end %>
+<div class="container">
+  <div class="section">
+    <h4><%= @category.title %></h4>
+    <div class="row">
+      <%= render @category.posts %>
+    </div>
+  </div>
 
-    <% if @category.option.include?("Language") %>
-        <%= render 'form_language' %>
-    <% end %>
+  <!--This is FORM-->
+  <div class="input-background">
+  </div>
+  <div class="input-fixed" style="z-index: 9999">
+      <% if @category.option.include?("Photo") %>
+          <%= render 'posts/form_photo' %>
+      <% end %>
 
-    <script>
-      $(document).ready(function(){
-        $("#application_create_icon").attr("href","/categories/<%= @category.id %>/posts/new")
-      })
-    </script>
 
-<% else %>
-        <script type="text/javascript">
-          window.location.href="/categories/<%= @category.id %>/posts/new"  // put your correct path in a string here
-        </script>
-<% end %>
+      <% if @category.option.include?("Video") %>
+          <%= render 'posts/form_video' %>
+      <% end %>
+
+      <% if @category.option.include?("Software") %>
+          <%= render 'posts/form_software' %>
+      <% end %>
+  </div>
+
+</div>
+
+
+<script>
+  $.fn.extend({
+    animateCss: function (animationName) {
+      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+      if(animationName.indexOf("Out") == -1){
+        $(this).show()
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+          $(this).removeClass('animated ' + animationName);
+          });
+      }
+      else{
+        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
+          $(this).removeClass('animated ' + animationName);
+          $(this).hide();
+        });
+      }
+    }
+  });
+
+
+
+  $(document).ready(function(){
+    //Set input fixed form as defualt
+    $(".input-fixed").css({
+      left:($(window).width() - $(".input-fixed").width())/2,
+      top:($(window).height()-$(".input-fixed").height())/3,
+    })
+
+
+    $(".form_popup_btn").click(function(){
+      $(".input-background").animateCss("fadeIn")
+      $(".input-fixed").animateCss("slideInUp")
+    })
+
+    $(".input-background").click(function(){
+      $(".input-background").fadeOut(1000)
+      $(".input-fixed").animateCss("slideOutDown")
+    })
+
+
+
+//    $(".form_popup_btn").click(function(){
+//      $(".input-fixed").removeClass("slideOutDown");
+//      $(".input-background").fadeIn(1000);
+//      $(".input-fixed").show();
+//      $(".input-fixed").addClass("animated slideInUp");
+//    })
+//
+//    $(".input-background").click(function(){
+//      $(".input-background").fadeOut(1000)
+//      $(".input-fixed").removeClass("slideInUp");
+//      $(".input-fixed").addClass("slideOutDown");
+//    })
+
+  })
+</script>

@@ -1,20 +1,17 @@
 <div class="container">
   <div class="section">
+    <% if @category.option.include?("Photo") %>
+        <%= render 'form_photo' %>
+    <% end %>
 
 
+    <% if @category.option.include?("Video") %>
+        <%= render 'form_video' %>
+    <% end %>
 
-  <% if @category.option.include?("Photo")%>
-          <%= render 'form_photo' %>
-      <% end %>
-
-
-      <% if @category.option.include?("Video")%>
-          <%= render 'form_video' %>
-      <% end %>
-
-    <% if @category.option.include?("Language")%>
-          <%= render 'form_language' %>
-      <% end %>
+    <% if @category.option.include?("Software") %>
+        <%= render 'form_software' %>
+    <% end %>
 
   </div>
 </div>

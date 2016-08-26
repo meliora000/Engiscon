@@ -14,7 +14,7 @@ class CategoriesController < ApplicationController
     @category.option = @category.option + ", sub: " +@category.sub.join(",")
     respond_to do |format|
       if @category.save
-        format.html { redirect_to root_path}
+        format.html { redirect_to new_category_post_path @category}
         format.json { render :show, status: :created, location: @category }
       else
         format.html { render :new }
@@ -25,6 +25,7 @@ class CategoriesController < ApplicationController
 
   def show
     @posts = @category.posts
+    @post = @category.posts.new
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: [@category,@posts]}
