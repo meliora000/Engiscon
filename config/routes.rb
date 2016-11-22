@@ -1,8 +1,25 @@
 Rails.application.routes.draw do
+  get 'participants/create'
+
+  get 'participants/index'
+
   root 'welcome#index'
 
+  # FACEBOOK LOGIN
+  match 'auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  match 'auth/failure', to: redirect('/'), via: [:get, :post]
+  match 'signout', to: 'sessions#destroy', as: 'signout', via: [:get, :post]
+  resources :users, only: :update
+  resources :participants do
+    member do
+      get :accept
+    end
+  end
+
+  # POST AND COMMENT
   resources :posts do
     resources :comments
+    resources :participants
 
     collection do
       get :index
@@ -10,11 +27,13 @@ Rails.application.routes.draw do
     end
   end
 
+  # CATEGORY NEW CREATE
   resources :categories, only: [:new,:create]
 
   resources :categories, only: [ :index, :show ] do
     resources :posts do
       resources :comments
+      resources :participants
     end
 
     collection do

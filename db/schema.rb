@@ -11,10 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160809083624) do
+ActiveRecord::Schema.define(version: 20161113064120) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "addis_accepted_to_participants", force: :cascade do |t|
+    t.boolean  "isAccepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "categories", force: :cascade do |t|
     t.string   "title"
@@ -30,9 +36,22 @@ ActiveRecord::Schema.define(version: 20160809083624) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "user_id"
   end
 
   add_index "comments", ["post_id"], name: "index_comments_on_post_id", using: :btree
+  add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "participants", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "post_id"
+    t.datetime "created_at",                  null: false
+    t.datetime "updated_at",                  null: false
+    t.boolean  "is_accepted", default: false
+  end
+
+  add_index "participants", ["post_id"], name: "index_participants_on_post_id", using: :btree
+  add_index "participants", ["user_id"], name: "index_participants_on_user_id", using: :btree
 
   create_table "posts", force: :cascade do |t|
     t.string   "title"
@@ -42,10 +61,31 @@ ActiveRecord::Schema.define(version: 20160809083624) do
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "avatar"
+    t.integer  "user_id"
+    t.string   "date"
+    t.string   "time"
   end
 
   add_index "posts", ["category_id"], name: "index_posts_on_category_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
+  create_table "users", force: :cascade do |t|
+    t.string   "provider"
+    t.string   "uid"
+    t.string   "name"
+    t.string   "oauth_token"
+    t.datetime "oauth_expires_at"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.string   "image"
+    t.string   "ename"
+    t.string   "kid"
+  end
 
   add_foreign_key "comments", "posts"
+  add_foreign_key "comments", "users"
+  add_foreign_key "participants", "posts"
+  add_foreign_key "participants", "users"
   add_foreign_key "posts", "categories"
+  add_foreign_key "posts", "users"
 end

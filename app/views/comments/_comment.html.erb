@@ -1,9 +1,9 @@
 <% if(comment.title == @suboption) %>
 <li id="comment_<%=comment.id %>">
   <% if (comment.body.include?("http")) %>
-  <a href="<%= comment.body %>"><%= comment.body %></a>
-      <% else %>
-      <%= comment.body %>
+      <a href="<%= comment.body %>"><%= comment.body %></a>
+  <% else %>
+      <%= comment.user.name %>: <%= comment.body %>
   <% end %>
 </li>
 <% end %>

@@ -14,4 +14,47 @@
 //= require jquery_ujs
 //= require materialize/dist/js/materialize
 //= require plyr/dist/plyr
-//= require_tree .
+
+
+
+
+
+
+
+
+
+
+$(document).ready(function () {
+    //BASIC SETUP
+    $('.button-collapse').sideNav();
+    $('.parallax').parallax();
+
+    //APPLICATION
+    $("#user-switch").mouseenter(function(){
+        $("#user-name").animateCss("fadeOutUp")
+        $("#user-sign").animateCss("fadeInUp")
+    })
+
+    $("#user-switch").mouseleave(function(){
+        $("#user-sign").animateCss("fadeOutUp")
+        $("#user-name").animateCss("fadeInUp")
+    })
+});
+
+$.fn.extend({
+    animateCss: function (animationName) {
+        var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+        if (animationName.indexOf("Out") == -1) {
+            $(this).show()
+            $(this).addClass('animated ' + animationName).one(animationEnd, function () {
+                $(this).removeClass('animated ' + animationName);
+            });
+        }
+        else {
+            $(this).addClass('animated ' + animationName).one(animationEnd, function () {
+                $(this).removeClass('animated ' + animationName);
+                $(this).hide();
+            });
+        }
+    }
+});

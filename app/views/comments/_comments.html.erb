@@ -1,12 +1,18 @@
 <div class="comments">
   <div class="comment_header">
-    <h5><%= @suboption %></h5>
+    <% if @suboption == "LIKE" %>
+        <p><i class="small material-icons comments_form_btn">thumb_up</i> 이런게 좋았어요!</p>
+    <% end %>
+    <% if @suboption == "WISH" %>
+        <p><i class="small material-icons comments_form_btn">comment</i> 이런게 있으면 좋을거 같아요!</p>
+
+  <% end %>
   </div>
   <div class="comments_list">
     <%= render "comments/list" %>
   </div>
-  <div class='comments_form'>
+
+  <div class='comments_form' style="display: none;">
     <%= render "comments/form" %>
   </div>
 </div>
-

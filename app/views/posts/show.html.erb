@@ -1,21 +1,133 @@
-<p id="notice"><%= notice %></p>
+<div class="row pd_t-15">
+  <div class="col s12">
+    <div>
+      <% if @post.category.option.include?("Video") %>
+          <div class="plyr materialboxed">
+            <div data-video-id="<%= @post.url %>" data-type="youtube"></div>
+          </div>
+      <% elsif @post.category.option.include?("Photo") %>
+          <% if @post.url.present? %>
+              <img class="picture" src="<%= @post.url %>" width="100%">
+          <% elsif @post.avatar.present? %>
+              <%= image_tag(@post.avatar, :class => "picture", style: 'width:100%') %>
+          <% end %>
+      <% elsif @post.category.option.include?("Software") %>
+          <% if @post.url.present? %>
+              <img class="materialboxed" src="<%= @post.url %>" width="100%">
+          <% elsif @post.avatar.present? %>
+              <%= image_tag(@post.avatar, :class => "materialboxed", style: 'width:100%') %>
+          <% end %>
+      <% end %>
+    </div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @post.title %>
-</p>
+    </a>
+  </div>
+</div>
 
-<p>
-  <strong>Url:</strong>
-  <%= @post.url %>
-</p>
+<div class="container">
+  <div class="section">
 
-<p>
-  <strong>Content:</strong>
-  <%= @post.content %>
-</p>
+    <div class="row pd_t-15">
+      <h3 class="center-align pd_b-10"><%= @post.title %></h3>
 
-<p>
-  <strong>Category:</strong>
-  <%= @post.category %>
-</p>
+      <div class="col l4 m4 s4 center"><p><i class="medium material-icons">language</i></p>
+        <p>Genre: <%= @post.category.title %></p></div>
+      <div class="col l4 m4 s4 center"><p><i class="medium material-icons">today</i></p>
+        <p>날짜: <%= @post.date %></p></div>
+      <div class="col l4 m4 s4 center"><p><i class="medium material-icons">schedule</i></p>
+        <p>시간: <%= @post.time %></p></div>
+      <!-- MAIN Option 별 디자인-->
+    </div>
+
+    <div class="row pd_t-15">
+      <div class="col s12">
+        <div class="flow-text">
+          <%= simple_format(@post.content) %>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+
+
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <h5>참여자</h5>
+        <ul id="participant-true">
+          <% @post.participants.each do |participant| %>
+              <% if participant.is_accepted? %>
+                  <li><%= participant.user.ename %></li>
+              <% end %>
+          <% end %>
+        </ul>
+        <h5>대기자</h5>
+        <ul id="participant-false">
+          <% @post.participants.each do |participant| %>
+              <% if !participant.is_accepted? %>
+                  <li id = "participantid_<%= participant.id %>">
+                    <% if @post.user.id != current_user.id %>
+                      <p><%= participant.user.ename %></p>
+                    <% else %>
+
+                      <p>(<%= participant.user.name %>)<%= link_to participant.user.ename, accept_participant_path(participant), remote: true, data: { confirm: "Are you sure?" } %></p>
+                    <% end %>
+                  </li>
+
+
+        <% end %>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+
+
+    <% if current_user %>
+    <% if @post.participants.where(user_id: current_user.id)==[] %>
+        <div class="row">
+          <div class="col s12 m12 l12">
+            <div id="participant_form"class="participant">
+              <%= render "participants/form" %>
+            </div>
+          </div>
+        </div>
+
+    <% end %>
+    <% end %>
+
+
+    <div class="row">
+      <!-- SUB Option 디자인 -->
+      <div class="col s12 m6 l6">
+        <% if @post.category.option.include?("Comment") %>
+            <% @suboption = "LIKE" %>
+            <div>
+              <div class="comment">
+                <%= render "comments/comments" %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+
+      <div class="col s12 m6 l6">
+        <% if @post.category.option.include?("Log") %>
+            <% @suboption = "WISH" %>
+            <div>
+              <div class="comment">
+                <%= render "comments/comments" %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  $(".comments_form_btn").click(function () {
+    $(this).parent().parent().parent().find($(".comments_form")).show();
+  })
+</script>

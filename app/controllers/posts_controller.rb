@@ -2,6 +2,9 @@ class PostsController < ApplicationController
   include ApplicationHelper
   before_action :set_category, except: [:index, :dance]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
+  protect_from_forgery
+
+
 
   def index
   end
@@ -26,6 +29,7 @@ class PostsController < ApplicationController
 
   def create
     @post = @category.posts.new(post_params)
+    @post.user = current_user
     respond_to do |format|
       if @post.save
         format.html { redirect_to category_path(@category)}
@@ -67,6 +71,11 @@ class PostsController < ApplicationController
   end
 
   def post_params
-    params.require(:post).permit(:title, :url, :content, :avatar)
+    params.require(:post).permit(:title, :date, :time, :url, :content, :avatar)
   end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+  helper_method :current_user
 end

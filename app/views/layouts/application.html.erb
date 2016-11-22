@@ -9,23 +9,84 @@
 </head>
 <body>
 <nav class="teal" role="navigation">
-  <div class="nav-wrapper container">
-    <a id="logo-container" href="/posts" class="brand-logo" style="padding-top: 7px">
-      <img src="http://inspireent.com/wp-content/uploads/2015/01/kids_silhouette.png" height="50px;">
-    </a>
-    <ul class="right hide-on-med-and-down">
-      <li><a href="#" class="username"></a></li>
-    </ul>
 
-    <ul id="nav-mobile" class="side-nav">
-      <li><a href="#">Navbar Link</a></li>
-      <li><a href="#">Navbar Link</a></li>
-      <li><a href="#">Navbar Link</a></li>
+
+  <div class="nav-wrapper" style="position:relative">
+    <a href="/posts" class="brand-logo left mg_l-20"></a>
+
+
+    <ul class="user-section right">
+
+      <% if current_user %>
+          <% if current_user.ename %>
+              <a href="/signout">
+              <li id="user-switch" class="mg_r-15" style="color:white; z-index: 300; height:100px; width:100px;"></li>
+              <li id="user-name" class="mg_r-15" style="color:white">HELLO <%= current_user.ename %></li>
+              <li id="user-sign" class="mg_r-15" style="color:white; display: none">LOGOUT</li>
+              </a>
+          <% else %>
+              <a href="/signout">
+                <li id="user-name" class="mg_r-15" style="color:white;">:)</li>
+              </a>
+          <% end %>
+      <% else %>
+          <li style="color:white"><%= link_to "페이스북 로그인", "/auth/facebook", id: "sign_in" %></li>
+      <% end %>
+
+
     </ul>
-    <a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+  </div>
+
+
+  <div class="nav-wrapper container">
+    <!--<a id="logo-container" href="/posts" class="brand-logo" style="padding-top: 7px">-->
+    <!--<img src="http://inspireent.com/wp-content/uploads/2015/01/kids_silhouette.png" height="50px;">-->
+    <!--</a>-->
+    <!--<ul class="right hide-on-med-and-down">-->
+    <!--<li><a href="#" class="username"></a></li>-->
+    <!--</ul>-->
+
+    <!--&lt;!&ndash;<ul id="nav-mobile" class="side-nav">&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><div id="user-widget">&ndash;&gt;-->
+    <!--&lt;!&ndash;
+    <% if current_user %>&ndash;&gt;-->
+        <!--&lt;!&ndash;Welcome <strong><%= current_user.name %></strong>!&ndash;&gt;-->
+        <!--&lt;!&ndash;
+    <% else %>&ndash;&gt;-->
+        <!--&lt;!&ndash;
+    <% end %>&ndash;&gt;-->
+    <!--&lt;!&ndash;</div></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a href="#">Navbar Link</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a href="#">Navbar Link</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+
+
+    <!--<ul id="nav-mobile" class="side-nav fixed" style="transform: translateX(-100%);">-->
+    <!--
+    <% if current_user %>-->
+        <!--<li><div class="userView teal darken-2">-->
+        <!--<a href="/users/<%= current_user.id %>">-->
+        <!--&lt;!&ndash;<%= image_tag("image_card.jpg", class: "background", style: 'height:100%;width:100%;') %>&ndash;&gt;-->
+        <!--<%= image_tag(current_user.image, size: '50x50', class: "circle") if current_user.image %>-->
+        <!--<span class="white-text name"><%= current_user.name %></span>-->
+        <!--</a>-->
+        <!--<%= link_to "Sign out", signout_path, id: "sign_out" %>-->
+        <!--</div></li>-->
+        <!--
+    <% else %>-->
+        <!--<%= link_to "Sign in with Facebook", "/auth/facebook", id: "sign_in" %>-->
+        <!--
+    <% end %>-->
+    <!--&lt;!&ndash;<li><a href="#!" class="collection-item">Notification<span class="new badge">3</span></a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a href="#!"> Jiyeon comment on you</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a href="#!">Jiyeon send email to you</a></li>&ndash;&gt;-->
+    <!--&lt;!&ndash;<li><a>please push Today daily log</a></li>&ndash;&gt;-->
+    <!--</ul>-->
+
+
+    <!--<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>-->
   </div>
 </nav>
-
 <%= yield %>
 
 <footer class="page-footer teal">
@@ -39,7 +100,7 @@
       <div class="col l3 s12">
         <h5 class="white-text">Contact</h5>
         <ul>
-          <li><a class="white-text" href="#!">01091684991</a></li>
+          <li><a class="white-text" href="#!">카톡: enjoycoding</a></li>
           <li><a class="white-text" href="#!">Joseph_lee1@naver.com</a></li>
           <li><a class="white-text" href="#!">SSD</a></li>
         </ul>
@@ -52,16 +113,16 @@
     </div>
   </div>
 
-  <div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">
-    <a class="btn-floating btn-small teal form_popup_btn">
-      <i class="large material-icons">mode_edit</i>
-    </a>
-    <ul>
-      <li><a class="btn-floating teal lighten-4" href="/posts/dance"><i class="material-icons">view_module
-      <li><a class="btn-floating teal lighten-4" href="/categories/new"><i class="material-icons">publish</i></a></li>
-      </i></a></li>
-    </ul>
-  </div>
+  <!--<div class="fixed-action-btn horizontal" style="bottom: 45px; right: 24px;">-->
+    <!--<a class="btn-floating btn-small teal form_popup_btn">-->
+      <!--<i class="large material-icons">mode_edit</i>-->
+    <!--</a>-->
+    <!--<ul>-->
+      <!--<li><a class="btn-floating teal lighten-4" href="/posts/dance"><i class="material-icons">view_module-->
+      <!--<li><a class="btn-floating teal lighten-4" href="/categories/new"><i class="material-icons">publish</i></a></li>-->
+      <!--</i></a></li>-->
+    <!--</ul>-->
+  <!--</div>-->
 </footer>
 </body>
 </html>

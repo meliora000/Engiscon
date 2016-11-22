@@ -6,6 +6,9 @@ gem 'pg'
 gem 'simple_form'
 gem 'carrierwave'
 
+gem 'omniauth'
+gem 'omniauth-facebook', '1.4.0'
+
 gem 'rails_12factor', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
@@ -25,6 +28,8 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
+
+gem 'composite_primary_keys', '=8.1.4'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'

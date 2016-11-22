@@ -1,0 +1,15 @@
+<%= form_for(current_user, remote: true) do |f| %>
+    <div class="row name-box" style="width:300px; position:relative">
+      <div class="input-field col s12" style="position:absolute; left:0px; top:0px">
+        <%= f.text_field :ename %>
+        <label class="active" for="first_name2">English Name</label>
+        <div class="actions" style="position:absolute; right:0px;top:0px;">
+          <%= button_tag(:class => "waves-effect waves-light btn name-submit-btn") do %>
+              submit
+          <% end %>
+        </div>
+      </div>
+    </div>
+<% end %>
+
+

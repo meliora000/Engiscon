@@ -15,9 +15,14 @@
     z-index: 102;
     display: block;
     overflow-y: scroll;
-    width:50%;
+    width: 300px;
     height: 70%;
     display: none;
+  }
+
+  .feedback-button{
+    float:left;
+    margin-right: 15px;
   }
 
   .sub {
@@ -25,17 +30,62 @@
   }
 </style>
 
+
+
+<div>
+  <% if current_user %>
+
+
+      <% unless current_user.ename %>
+          <div id ="welcome" style="position:fixed; z-index: 500; width:100%; height:100%; left:0;top:0;background-color: rgba(0,0,0,.8);display:none">
+
+            <div id="welcome_letter" class="center">
+              <h1 class="center" style="color:white;">welcome</h1>
+            </div>
+
+
+
+
+            <div id="update-ename" class="center">
+              <%= render 'posts/update_ename' %>
+            </div>
+
+
+          </div>
+      <% end %>
+  <% end %>
+</div>
+
+
+<div>
 <div class="container">
   <div class="section">
+
+
     <!--   All Post   -->
     <% Post.all.each do |post| %>
-        <div class="row" style="position:relative">
-          <div class="col s12">
+
+
+        <div class="row pd_t-15" style="position:relative">
+
+          <div class="row" style="background-color: #d2d8e0">
+            <div class="col s12">
+              <a href="/categories/<%= post.category_id %>/posts/<%= post.id %>">
+                <h5 class="center"><%= post.title %></h5>
+              </a>
+            </div>
             <a href="/categories/<%= post.category_id %>">
-              <p style="margin-bottom: -15px;"><i><%= post.category.title %></i></p>
-            </a>
-            <h5><%= post.title %></h5>
-            <!-- MAIN Option 별 디자인-->
+            <div class="col l4 m4 s4 center"><p><i class="small material-icons">language</i></p>
+              <p class="mg_nt-15"><%= post.category.title %></p></div>
+             </a>
+            <div class="col l4 m4 s4 center"><p><i class="small material-icons">today</i></p>
+              <p class="mg_nt-15"><%= post.date %></p></div>
+            <div class="col l4 m4 s4 center"><p><i class="small material-icons">schedule</i></p>
+              <p class="mg_nt-15"><%= post.time %></p></div>
+
+          </div>
+
+          <div class="row mg_nt-15">
             <div class="z-depth-5">
               <% if post.category.option.include?("Video") %>
                   <div class="plyr materialboxed">
@@ -43,9 +93,9 @@
                   </div>
               <% elsif post.category.option.include?("Photo") %>
                   <% if post.url.present? %>
-                      <img class="materialboxed" src="<%= post.url %>" width="100%">
+                      <img class="picture" src="<%= post.url %>" width="100%">
                   <% elsif post.avatar.present? %>
-                      <%= image_tag(post.avatar, :class => "materialboxed", style: 'width:100%') %>
+                      <%= image_tag(post.avatar, :class => "picture", style: 'width:100%') %>
                   <% end %>
               <% elsif post.category.option.include?("Software") %>
                   <% if post.url.present? %>
@@ -55,13 +105,17 @@
                   <% end %>
               <% end %>
             </div>
+          </div>
 
-            <!-- SUB Option 디자인 -->
-            <div class="sub" style="position:absolute; right:20px; bottom:0px">
+
+          <!-- SUB Option 디자인 -->
+          <div class="sub" style="position:absolute; bottom:40px; right:-20px">
               <% if post.category.option.include?("Comment") %>
-                  <% @suboption = "Comment" %>
-                  <div>
-                    <a class="btn-floating btn-small teal sub-button"><i class="material-icons">comment</i></a>
+                <% @suboption = "LIKE" %>
+                  <div class="feedback-button">
+                    <a class="btn-floating teal">
+                      <i class="small material-icons sub-button">thumb_up</i>
+                    </a>
                     <div class="comment">
                       <% @post = post %>
                       <%= render "comments/comments" %>
@@ -70,9 +124,11 @@
               <% end %>
 
               <% if post.category.option.include?("Log") %>
-                  <% @suboption = "Log" %>
-                  <div>
-                    <a class="btn-floating btn-small teal sub-button"><i class="material-icons">replay</i></a>
+                <% @suboption = "WISH" %>
+                  <div class="feedback-button">
+                    <a class="btn-floating teal">
+                    <i class="small material-icons sub-button">comment</i>
+                    </a>
                     <div class="comment">
                       <% @post = post %>
                       <%= render "comments/comments" %>
@@ -90,8 +146,14 @@
 <script>
   $(document).ready(function () {
 
+    $(".name-submit-btn").click(function(){
+      alert("THANK YOU");
+      $("#welcome").animateCss("flipOutX")
+    })
+
+
+    welcome();
     plyr.setup();
-    $('.materialboxed').materialbox();
     $(".plyr__controls").click(function () {
     })
     $(".sub-button").click(function () {
@@ -112,6 +174,14 @@
 
   });
 
+  function welcome(){
+    $("#welcome_letter").hide();
+    $("#update-ename").hide();
+    $("#welcome").animateCss("fadeIn")
+    $("#welcome_letter").animateCss("fadeInDown")
+    $("#update-ename").animateCss("fadeInDown")
+  }
+
   //when comment create button click and if textarea is not empty
   $(".comment_header").click(function(){
     $(this).closest($(".comment")).addClass("animated fadeOutRight").delay(1000).queue(function(){
@@ -120,31 +190,11 @@
     })
   })
 
-  $.fn.extend({
-    animateCss: function (animationName) {
-      var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-      if(animationName.indexOf("Out") == -1){
-        $(this).show()
-        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
-          $(this).removeClass('animated ' + animationName);
-        });
-      }
-      else{
-        $(this).addClass('animated ' + animationName).one(animationEnd, function() {
-          $(this).removeClass('animated ' + animationName);
-          $(this).hide();
-        });
-      }
-    }
-  });
-
   $(".comment_submit_btn").click(function(){
     var text = $(this).parent().parent().find($("textarea"))
     var text_list = "<li class='animated fadeInUp' style='white-space: pre-wrap;'>" + text.val() + "</li>"
     $(this).parent().parent().parent().parent().parent().find($(".comments_list ul")).append(text_list)
   })
-
-  $(".username").text("Joseph Lee")
 
 //  $(".comment_submit_btn").click(function () {
 //    var tarea = $(this).parent().parent().find($("textarea"))

@@ -1,0 +1,8 @@
+<% participant = @post.participants.new %>
+<div id="comments_form_<%=@post.id%>">
+  <%= simple_form_for([@post, participant], remote: true ) do | f | %>
+      <div class='form-actions'>
+        <%= f.button :submit, "Join !", :class=>"comment_submit_btn" %>
+      </div>
+  <% end %>
+</div>
